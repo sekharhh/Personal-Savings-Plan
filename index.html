@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Savings Plans</title>
+    <script>
+        function calculateNetWorth() {
+            // Collect Income data
+            const salaryIncome = parseFloat(document.getElementById("salaryIncome").value) || 0;
+            const rentalIncome = parseFloat(document.getElementById("rentalIncome").value) || 0;
+            const otherIncome = parseFloat(document.getElementById("otherIncome").value) || 0;
+
+            // Collect Expense data
+            const groceryExpense = parseFloat(document.getElementById("groceryExpense").value) || 0;
+            const healthInsuranceExpense = parseFloat(document.getElementById("healthInsuranceExpense").value) || 0;
+            const termInsuranceExpense = parseFloat(document.getElementById("termInsuranceExpense").value) || 0;
+            const schoolFeesExpense = parseFloat(document.getElementById("schoolFeesExpense").value) || 0;
+            const tuitionFeesExpense = parseFloat(document.getElementById("tuitionFeesExpense").value) || 0;
+            const familyDiningExpense = parseFloat(document.getElementById("familyDiningExpense").value) || 0;
+            const familyOutingExpense = parseFloat(document.getElementById("familyOutingExpense").value) || 0;
+            const otherExpenses = parseFloat(document.getElementById("otherExpenses").value) || 0;
+
+            // Collect Savings data
+            const fdSavingsTill2023 = parseFloat(document.getElementById("fdSavingsTill2023").value) || 0;
+            const fdMonthlySavings = parseFloat(document.getElementById("fdMonthlySavings").value) || 0;
+
+            const poSavingsTill2023 = parseFloat(document.getElementById("poSavingsTill2023").value) || 0;
+            const poMonthlySavings = parseFloat(document.getElementById("poMonthlySavings").value) || 0;
+
+            const mfSavingsTill2023 = parseFloat(document.getElementById("mfSavingsTill2023").value) || 0;
+            const mfMonthlySavings = parseFloat(document.getElementById("mfMonthlySavings").value) || 0;
+
+            const otherSavingsTill2023 = parseFloat(document.getElementById("otherSavingsTill2023").value) || 0;
+            const otherMonthlySavings = parseFloat(document.getElementById("otherMonthlySavings").value) || 0;
+
+            const fdROI = parseFloat(document.getElementById("fdROI").value) || 0;
+            const poROI = parseFloat(document.getElementById("poROI").value) || 0;
+            const mfROI = parseFloat(document.getElementById("mfROI").value) || 0;
+            const otherROI = parseFloat(document.getElementById("otherROI").value) || 0;
+
+            // Calculate Total Income
+            const totalIncome = salaryIncome + rentalIncome + otherIncome;
+
+            // Calculate Total Expenses
+            const totalExpenses = groceryExpense + healthInsuranceExpense + termInsuranceExpense + schoolFeesExpense + tuitionFeesExpense + familyDiningExpense + familyOutingExpense + otherExpenses;
+
+            // Calculate Annual Savings for each category
+            const fdAnnualSavings = fdMonthlySavings * 12;
+            const poAnnualSavings = poMonthlySavings * 12;
+            const mfAnnualSavings = mfMonthlySavings * 12;
+            const otherAnnualSavings = otherMonthlySavings * 12;
+
+            // Calculate Surplus
+            const annualSavings = fdAnnualSavings + poAnnualSavings + mfAnnualSavings + otherAnnualSavings;
+            const surplus = totalIncome - totalExpenses - annualSavings;
+
+            // Calculate Net Worth for each savings category (including interest)
+            const fdNetWorth = fdSavingsTill2023 + fdAnnualSavings + (fdSavingsTill2023 * fdROI / 100);
+            const poNetWorth = poSavingsTill2023 + poAnnualSavings + (poSavingsTill2023 * poROI / 100);
+            const mfNetWorth = mfSavingsTill2023 + mfAnnualSavings + (mfSavingsTill2023 * mfROI / 100);
+            const otherNetWorth = otherSavingsTill2023 + otherAnnualSavings + (otherSavingsTill2023 * otherROI / 100);
+
+            const totalNetWorth = fdNetWorth + poNetWorth + mfNetWorth + otherNetWorth;
+
+            // Displaying the results in the Summary Report
+            document.getElementById("totalIncome").innerText = (totalIncome * 12).toFixed(2); // Annual Income
+            document.getElementById("totalExpenses").innerText = (totalExpenses * 12).toFixed(2); // Annual Expenses
+            document.getElementById("annualSavings").innerText = annualSavings.toFixed(2);
+            document.getElementById("surplus").innerText = surplus.toFixed(2);
+
+            document.getElementById("fdNetWorth").innerText = fdNetWorth.toFixed(2);
+            document.getElementById("poNetWorth").innerText = poNetWorth.toFixed(2);
+            document.getElementById("mfNetWorth").innerText = mfNetWorth.toFixed(2);
+            document.getElementById("otherNetWorth").innerText = otherNetWorth.toFixed(2);
+            document.getElementById("totalNetWorth").innerText = totalNetWorth.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Personal Savings Plans</h1>
+    <form>
+        <h2>Income Section</h2>
+        <table border="1">
+            <tr>
+                <td>Monthly Salary</td>
+                <td><input type="number" id="salaryIncome" placeholder="Enter monthly salary"></td>
+            </tr>
+            <tr>
+                <td>Monthly Rental Income</td>
+                <td><input type="number" id="rentalIncome" placeholder="Enter monthly rental income"></td>
+            </tr>
+            <tr>
+                <td>Other Income</td>
+                <td><input type="number" id="otherIncome" placeholder="Enter other income"></td>
+            </tr>
+        </table>
+
+        <h2>Expenses Section</h2>
+        <table border="1">
+            <tr>
+                <td>Grocery Expenses</td>
+                <td><input type="number" id="groceryExpense" placeholder="Enter monthly grocery expenses"></td>
+            </tr>
+            <tr>
+                <td>Health Insurance</td>
+                <td><input type="number" id="healthInsuranceExpense" placeholder="Enter health insurance expense"></td>
+            </tr>
+            <tr>
+                <td>Term Insurance</td>
+                <td><input type="number" id="termInsuranceExpense" placeholder="Enter term insurance expense"></td>
+            </tr>
+            <tr>
+                <td>School Fees</td>
+                <td><input type="number" id="schoolFeesExpense" placeholder="Enter school fees"></td>
+            </tr>
+            <tr>
+                <td>Tuition Fees</td>
+                <td><input type="number" id="tuitionFeesExpense" placeholder="Enter tuition fees"></td>
+            </tr>
+            <tr>
+                <td>Family Dining Expenses</td>
+                <td><input type="number" id="familyDiningExpense" placeholder="Enter family dining expenses"></td>
+            </tr>
+            <tr>
+                <td>Family Outing Expenses</td>
+                <td><input type="number" id="familyOutingExpense" placeholder="Enter family outing expenses"></td>
+            </tr>
+            <tr>
+                <td>Other Expenses</td>
+                <td><input type="number" id="otherExpenses" placeholder="Enter other monthly expenses"></td>
+            </tr>
+        </table>
+
+        <h2>Savings Section</h2>
+        <table border="1">
+            <tr>
+                <td>Nature of Savings</td>
+                <td>Monthly Savings</td>
+                <td>Total Savings Till Date</td>
+                <td>ROI (%)</td>
+            </tr>
+            <tr>
+                <td>Fixed Deposit</td>
+                <td><input type="number" id="fdMonthlySavings" placeholder="Enter monthly savings"></td>
+                <td><input type="number" id="fdSavingsTill2023" placeholder="Enter total savings till date"></td>
+                <td><input type="number" id="fdROI" placeholder="Enter ROI"></td>
+            </tr>
+            <tr>
+                <td>Post Office</td>
+                <td><input type="number" id="poMonthlySavings" placeholder="Enter monthly savings"></td>
+                <td><input type="number" id="poSavingsTill2023" placeholder="Enter total savings till date"></td>
+                <td><input type="number" id="poROI" placeholder="Enter ROI"></td>
+            </tr>
+            <tr>
+                <td>Mutual Funds</td>
+                <td><input type="number" id="mfMonthlySavings" placeholder="Enter monthly savings"></td>
+                <td><input type="number" id="mfSavingsTill2023" placeholder="Enter total savings till date"></td>
+                <td><input type="number" id="mfROI" placeholder="Enter ROI"></td>
+            </tr>
+            <tr>
+                <td>Other Savings</td>
+                <td><input type="number" id="otherMonthlySavings" placeholder="Enter monthly savings"></td>
+                <td><input type="number" id="otherSavingsTill2023" placeholder="Enter total savings till date"></td>
+                <td><input type="number" id="otherROI" placeholder="Enter ROI"></td>
+            </tr>
+        </table>
+
+        <button type="button" onclick="calculateNetWorth()">Calculate</button>
+    </form>
+
+    <h2>Summary Report (2024)</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Particulars</th>
+                <th>2024</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Annual Income</td>
+                <td id="totalIncome">0.00</td>
+            </tr>
+            <tr>
+                <td>Annual Expenses</td>
+                <td id="totalExpenses">0.00</td>
+            </tr>
+            <tr>
+                <td>Annual Savings</td>
+                <td id="annualSavings">0.00</td>
+            </tr>
+            <tr>
+                <td>Surplus (Income - Expenses - Savings)</td>
+                <td id="surplus">0.00</td>
+            </tr>
+            <tr>
+                <td>Total Fixed Deposit Net Worth</td>
+                <td id="fdNetWorth">0.00</td>
+            </tr>
+            <tr>
+                <td>Total Post Office Net Worth</td>
+                <td id="poNetWorth">0.00</td>
+            </tr>
+            <tr>
+                <td>Total Mutual Funds Net Worth</td>
+                <td id="mfNetWorth">0.00</td>
+            </tr>
+            <tr>
+                <td>Total Other Savings Net Worth</td>
+                <td id="otherNetWorth">0.00</td>
+            </tr>
+            <tr>
+                <td>Total Net Worth</td>
+                <td id="totalNetWorth">0.00</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
